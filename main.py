@@ -1,18 +1,20 @@
-from Models import run_model
+from Functions import run_model, processing_data
 from sklearn.datasets import load_wine
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
 
 
 def main():
-    data = load_wine()
-    x = data.data
-    y = data.target
+    data = pd.read_csv("UCI_Credit_Card.csv")
+    print("First 5 rows:")
+    print(data.head())
+    print(data.columns)
 
-    X_train, X_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=42)
-    params = {'n_estimators': 100, 'max_depth': 5, 'max_features': 'sqrt'}
-    result = run_model(RandomForestClassifier, X_train, X_test, y_train, y_test, params)
-    print("result: ", result)
+    processing_data(data)
+
 
 
 if __name__ == '__main__':
